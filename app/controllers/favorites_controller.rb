@@ -3,18 +3,19 @@ class FavoritesController < ApplicationController
 
   # GET /favorites
   def index
-    @favorites = Favorite.all
+    favorites = Favorite.order(:category_type)
 
-    render json: @favorites
+    render json: favorites.to_json(include: :food)
   end
 
   # GET /favorites/1
   def show
-    render json: @favorite
+    render json: @favorite.to_json(include: :food)
   end
 
   # POST /favorites
   def create
+    byebug
     @favorite = Favorite.new(favorite_params)
 
     if @favorite.save
