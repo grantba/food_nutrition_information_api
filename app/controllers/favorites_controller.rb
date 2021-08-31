@@ -15,7 +15,6 @@ class FavoritesController < ApplicationController
 
   # POST /favorites
   def create
-    byebug
     @favorite = Favorite.new(favorite_params)
 
     if @favorite.save
@@ -47,6 +46,6 @@ class FavoritesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def favorite_params
-      params.require(:favorite).permit(:category_type, :user_id, :food_id)
+      params.require(:favorite).permit(:favorite, :food_category_type, :user_id, :food_id)
     end
 end

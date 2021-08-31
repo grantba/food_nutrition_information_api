@@ -16,9 +16,13 @@ class FoodsController < ApplicationController
   # POST /foods
   def create
     @food = Food.new(food_params)
-
     if @food.save
-      render json: @food, status: :created, location: @food
+      @favorite = Favorite.create_favorite(params[:food], @food.id)
+        if @favorite.save 
+          render json: @food, status: :created, location: @food
+        else
+          render json: @favorite.errors, status: :unprocessable_entity
+        end
     else
       render json: @food.errors, status: :unprocessable_entity
     end
