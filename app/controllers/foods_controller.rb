@@ -15,8 +15,8 @@ class FoodsController < ApplicationController
 
   # POST /foods
   def create
-    @food = Food.new(food_params)
-    if @food.save
+    @food = Food.find_or_create_by(food_params)
+    if @food
       @favorite = Favorite.create_favorite(params[:food], @food.id)
         if @favorite.save 
           render json: @food, status: :created, location: @food
