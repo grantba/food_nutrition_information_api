@@ -15,10 +15,10 @@ class FavoritesController < ApplicationController
 
   # POST /favorites
   def create
-    @favorite = Favorite.new(favorite_params)
-
+    @food = get_food(favorite_params.except(:user_id, :food_category_type))
+    @favorite = @food.favorites.build(food_category_type: favorite_params[:food_category_type], user_id: favorite_params[:user_id])
     if @favorite.save
-      render json: @favorite, status: :created, location: @favorite
+      render json: @favorite.to_json(include: :food), status: :created, location: @favorite
     else
       render json: @favorite.errors, status: :unprocessable_entity
     end
@@ -26,8 +26,9 @@ class FavoritesController < ApplicationController
 
   # PATCH/PUT /favorites/1
   def update
-    if @favorite.update(favorite_params)
-      render json: @favorite
+    @food = get_food(favorite_params.except(:favorite_id, :food_id, :user_id, :food_category_type))
+    if @favorite.update(food_category_type: favorite_params[:food_category_type], user_id: favorite_params[:user_id], food_id: @food.id)
+      render json: @favorite.to_json(include: :food)
     else
       render json: @favorite.errors, status: :unprocessable_entity
     end
@@ -35,7 +36,11 @@ class FavoritesController < ApplicationController
 
   # DELETE /favorites/1
   def destroy
-    @favorite.destroy
+    if @favorite.destroy
+      render json: {status: :ok}
+    else
+      render json: {status: :unprocessable_entity}
+    end  
   end
 
   private
@@ -46,6 +51,10 @@ class FavoritesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def favorite_params
-      params.require(:favorite).permit(:favorite, :food_category_type, :user_id, :food_id)
+      params.require(:favorite).permit(:food_category_type, :user_id, :food_id, :food_name, :calories, :total_fat, :saturated_fat, :cholesterol, :sodium, :total_carbohydrate, :dietary_fiber, :sugars, :protein, :potassium, :thumbnail, :serving_qty, :serving_unit, :serving_weight_grams)
+    end
+
+    def get_food(food_att)
+      Food.find_or_create_by(food_att)
     end
 end

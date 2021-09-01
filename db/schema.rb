@@ -13,7 +13,6 @@
 ActiveRecord::Schema.define(version: 2021_08_23_222403) do
 
   create_table "favorites", force: :cascade do |t|
-    t.boolean "favorite", default: true
     t.string "food_category_type"
     t.integer "user_id"
     t.integer "food_id"
@@ -35,7 +34,7 @@ ActiveRecord::Schema.define(version: 2021_08_23_222403) do
     t.float "total_fat"
     t.string "thumbnail"
     t.float "serving_qty"
-    t.float "serving_unit"
+    t.string "serving_unit"
     t.float "serving_weight_grams"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

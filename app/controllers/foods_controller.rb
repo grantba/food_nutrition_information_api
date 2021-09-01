@@ -1,6 +1,4 @@
 class FoodsController < ApplicationController
-  before_action :set_food, only: [:show, :update, :destroy]
-
   # GET /foods
   def index
     @foods = Food.all
@@ -10,46 +8,7 @@ class FoodsController < ApplicationController
 
   # GET /foods/1
   def show
+    @food = Food.find(params[:id])
     render json: @food
   end
-
-  # POST /foods
-  def create
-    @food = Food.find_or_create_by(food_params)
-    if @food
-      @favorite = Favorite.create_favorite(params[:food], @food.id)
-        if @favorite.save 
-          render json: @food, status: :created, location: @food
-        else
-          render json: @favorite.errors, status: :unprocessable_entity
-        end
-    else
-      render json: @food.errors, status: :unprocessable_entity
-    end
-  end
-
-  # PATCH/PUT /foods/1
-  def update
-    if @food.update(food_params)
-      render json: @food
-    else
-      render json: @food.errors, status: :unprocessable_entity
-    end
-  end
-
-  # DELETE /foods/1
-  def destroy
-    @food.destroy
-  end
-
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_food
-      @food = Food.find(params[:id])
-    end
-
-    # Only allow a list of trusted parameters through.
-    def food_params
-      params.require(:food).permit(:food_name, :calories, :total_fat, :saturated_fat, :cholesterol, :sodium, :total_carbohydrate, :dietary_fiber, :sugars, :protein, :potassium, :thumbnail, :serving_qty, :serving_unit, :serving_weight_grams)
-    end
 end

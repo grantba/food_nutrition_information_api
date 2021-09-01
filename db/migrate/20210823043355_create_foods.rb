@@ -14,7 +14,7 @@ class CreateFoods < ActiveRecord::Migration[6.1]
       t.float :total_fat
       t.string :thumbnail
       t.float :serving_qty
-      t.float :serving_unit
+      t.string :serving_unit
       t.float :serving_weight_grams
 
       t.timestamps
