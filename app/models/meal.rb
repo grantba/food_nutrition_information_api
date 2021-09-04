@@ -1,7 +1,7 @@
 class Meal < ApplicationRecord
     belongs_to :user
-    belongs_to :food
+    has_many :mealplans
+    has_many :foods, through: :mealplans
 
     validates :meal_category_type, presence: true
 end
-

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_23_222403) do
+ActiveRecord::Schema.define(version: 2021_09_03_025522) do
 
   create_table "favorites", force: :cascade do |t|
     t.string "food_category_type"
@@ -40,21 +40,32 @@ ActiveRecord::Schema.define(version: 2021_08_23_222403) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "meal_plans", force: :cascade do |t|
+    t.integer "meal_id", null: false
+    t.integer "food_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["food_id"], name: "index_meal_plans_on_food_id"
+    t.index ["meal_id"], name: "index_meal_plans_on_meal_id"
+  end
+
   create_table "meals", force: :cascade do |t|
     t.string "meal_category_type"
     t.text "description"
     t.integer "user_id"
-    t.integer "food_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|
     t.string "username"
-    t.string "password"
+    t.string "email"
+    t.string "password_digest"
     t.string "reason_for_use"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "meal_plans", "foods"
+  add_foreign_key "meal_plans", "meals"
 end

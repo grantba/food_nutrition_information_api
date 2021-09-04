@@ -3,5 +3,8 @@ Rails.application.routes.draw do
   resources :favorites
   resources :foods
   resources :users
+  resources :auth
+  # post '/login', to: 'auth#create'
+  # post '/signup', to: 'users#create'  
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

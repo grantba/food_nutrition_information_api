@@ -7,10 +7,10 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-# users = User.create([{username: "grantb", password: "grantb", reason_for_use: "Be mindful of what I eat."}, 
-#     {username: "gaving", password: "gaving", reason_for_use: "Stay healthy"}, 
-#     {username: "BingBing", password: "BingBing", reason_for_use: ""}, 
-#     {username: "Winston", password: "Winston", reason_for_use: ""}])
+# users = User.create([{username: "grantb", email: "grantb@email.com", password: "grantb", reason_for_use: "Be mindful of what I eat."}, 
+#     {username: "gaving", email: "gaving@email.com", password: "gaving", reason_for_use: "Stay healthy"}, 
+#     {username: "BingBing", email: "BingBing@email.com", password: "BingBing", reason_for_use: ""}, 
+#     {username: "Winston", email: "Winston@email.com", password: "Winston", reason_for_use: ""}])
 
 # foods = Food.create([{food_name: "hot dog", calories: 120.0, cholesterol: 20.0, dietary_fiber: 2.0, potassium: 12.0, protein: 8.0, saturated_fat: 12.5, sodium: 25.0, sugars: 10.0, total_carbohydrate: 2.0, total_fat: 25.0, thumbnail: "https://tse1.mm.bing.net/th?id=OIP.sYaqfFkBTAeKCNiUmrRvcgHaJQ&pid=Api&P=0&w=300&h=300", serving_qty: 1.0, serving_unit: "hot dog", serving_weight_grams: 2.0},
 #     {food_name: "hamburger", calories: 160.0, cholesterol: 25.1, dietary_fiber: 3.0, potassium: 3.0, protein: 9.6, saturated_fat: 15.0, sodium: 52.3, sugars: 8.0, total_carbohydrate: 2.0, total_fat: 26.3, thumbnail: "https://cdn-image.foodandwine.com/sites/default/files/styles/4_3_horizontal_-_1200x900/public/1559057296/Burger-National-Hamburger-Day-FT-Blog0619.jpg?itok=p_c0wvCU", serving_qty: 1.0, serving_unit: "hamburger", serving_weight_grams: 3.5},
@@ -25,10 +25,10 @@
 #     {food_category_type: "comfort foods", user_id: 1, food_id: 3},
 #     {food_category_type: "yummy", user_id: 3, food_id: 2}])
 
-# meals = Meal.create([{meal_category_type: "dessert", description: "", user_id: 2, food_id: 4},
-#     {meal_category_type: "anytime", description: "only with lots of cheesy goodness", user_id: 1, food_id: 3},
-#     {meal_category_type: "breakfast, lunch, or dinner", description: "I'll pretty much eat anything anytime of day!", user_id: 3, food_id: 2},
-#     {meal_category_type: "snack", description: "one of my favorites", user_id: 4, food_id: 1}])
+# meals = Meal.create([{meal_category_type: "dessert", description: "", user_id: 2},
+#     {meal_category_type: "anytime", description: "only with lots of cheesy goodness", user_id: 1},
+#     {meal_category_type: "breakfast, lunch, or dinner", description: "I'll pretty much eat anything anytime of day!", user_id: 3},
+#     {meal_category_type: "snack", description: "one of my favorites", user_id: 4}])
 
 # more_favorites = Favorite.create([{food_category_type: "", user_id: 2, food_id: 3},
 #     {food_category_type: "anytime", user_id: 3, food_id: 1},
@@ -36,8 +36,18 @@
 #     {food_category_type: "junk food", user_id: 2, food_id: 6},
 #     {food_category_type: "junk food", user_id: 1, food_id: 6}])
 
-# more_meals = Meal.create([{meal_category_type: "anytime", description: "", user_id: 3, food_id: 1},
-#     {meal_category_type: "favorites", description: "good to eat all the time", user_id: 1, food_id: 4},
-#     {meal_category_type: "favorites", description: "good to eat all the time", user_id: 1, food_id: 6},
-#     {meal_category_type: "snack food", description: "", user_id: 2, food_id: 6},
-#     {meal_category_type: "dinner", description: "not healthy but deliscious", user_id: 2, food_id: 5}])
+# more_meals = Meal.create([{meal_category_type: "anytime", description: "", user_id: 3},
+#     {meal_category_type: "favorites", description: "good to eat all the time", user_id: 1},
+#     {meal_category_type: "snack food", description: "", user_id: 2},
+#     {meal_category_type: "dinner", description: "not healthy but deliscious", user_id: 2}])
+
+mealfoods = MealPlan.create([{meal_id: 7, food_id: 4},
+    {meal_id: 7, food_id: 3},
+    {meal_id: 7, food_id: 2},
+    {meal_id: 2, food_id: 1}])
+
+moremealfoods = MealPlan.create([{meal_id: 9, food_id: 1},
+    {meal_id: 6, food_id: 4},
+    {meal_id: 6, food_id: 6},
+    {meal_id: 7, food_id: 6},
+    {meal_id: 8, food_id: 5}])
