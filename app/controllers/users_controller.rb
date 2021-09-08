@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   skip_before_action :authorized, only: [:create]
-  before_action :set_user, only: [:update, :destroy]
+  before_action :authorized, only: [:update, :destroy]
 
   # POST /users
   def create
@@ -13,30 +13,30 @@ class UsersController < ApplicationController
     end
   end
 
-  def profile
-    render json: {user: UserSerializer.new(current_user)}, status: accepted
-  end
+  # def profile
+  #   render json: {user: UserSerializer.new(current_user)}, status: accepted
+  # end
 
   # PATCH/PUT /users/1
   def update
     if @user.update(user_params)
-      render json: @user
+      binding.pry
+      render json: { user: UserSerializer.new(@user) }, status: :updated
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: { error: 'failed to update user' }, status: :not_acceptable
     end
   end
 
   # DELETE /users/1
   def destroy
-    @user.destroy
+    if @user && @user.destroy
+      render json: { message: "You successfully deleted your account." }, status: :deleted
+    else
+      render json: { error: 'failed to delete user' }, status: :not_acceptable
+    end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
-
     # Only allow a list of trusted parameters through.
     def user_params
       params.require(:user).permit(:username, :email, :password, :reason_for_use)
