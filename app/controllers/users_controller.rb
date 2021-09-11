@@ -9,7 +9,7 @@ class UsersController < ApplicationController
       @token = encode_token(user_id: @user.id)
       render json: { user: UserSerializer.new(@user), jwt: @token }, status: :created
     else
-      render json: { error: 'failed to create user' }, status: :not_acceptable
+      render json: { message: "Failed to create user account." }, status: :unauthorized
     end
   end
 
@@ -20,19 +20,19 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   def update
     if @user.update(user_params)
-      binding.pry
-      render json: { user: UserSerializer.new(@user) }, status: :updated
+      token = encode_token({ user_id: @user.id })
+      render json: { user: UserSerializer.new(@user), jwt: token }, status: :accepted
     else
-      render json: { error: 'failed to update user' }, status: :not_acceptable
+      render json: { message: "Failed to update user account." }, status: :unauthorized
     end
   end
 
   # DELETE /users/1
   def destroy
     if @user && @user.destroy
-      render json: { message: "You successfully deleted your account." }, status: :deleted
+      render json: { message: "You successfully deleted your account." }, status: :accepted
     else
-      render json: { error: 'failed to delete user' }, status: :not_acceptable
+      render json: { message: "Failed to delete user account." }, status: :unauthorized
     end
   end
 

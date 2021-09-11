@@ -41,7 +41,7 @@ With the server running, open up your favorite web browser and navigate to the f
 
 http://localhost:3000
 
-You can use the following endpoints to view the API information.
+Once logged in, you can use the following endpoints to view the API information.
 
 /foods
 /favorites
