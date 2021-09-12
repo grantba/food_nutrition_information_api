@@ -37,16 +37,6 @@ This application can be run locally on your computer. Run the following command 
 
 rails s
 
-With the server running, open up your favorite web browser and navigate to the following URL:
-
-http://localhost:3000
-
-Once logged in, you can use the following endpoints to view the API information.
-
-/foods
-/favorites
-/meals
-
 Once you have both your backend and frontend running, you are ready to use the app. 
 
 Contributing:

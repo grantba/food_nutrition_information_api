@@ -3,8 +3,7 @@ class FavoritesController < ApplicationController
 
   # GET /favorites
   def index
-    favorites = Favorite.order(:category_type)
-
+    favorites = Favorite.order(:food_name)
     render json: favorites.to_json(include: :food)
   end
 
@@ -27,7 +26,7 @@ class FavoritesController < ApplicationController
   # PATCH/PUT /favorites/1
   def update
     @food = get_food(favorite_params.except(:favorite_id, :food_id, :user_id, :food_category_type))
-    if @favorite.update(food_category_type: favorite_params[:food_category_type], user_id: favorite_params[:user_id], food_id: @food.id)
+    if @food && @favorite.update(food_category_type: favorite_params[:food_category_type], user_id: favorite_params[:user_id], food_id: @food.id)
       render json: @favorite.to_json(include: :food)
     else
       render json: @favorite.errors, status: :unprocessable_entity
@@ -39,7 +38,7 @@ class FavoritesController < ApplicationController
     if @favorite.destroy
       render json: {status: :ok}
     else
-      render json: {status: :unprocessable_entity}
+      render json: { message: "There was an issue deleting your favorite. Please try again." }, status: :unprocessable_entity
     end  
   end
 
