@@ -4,21 +4,11 @@ class FavoritesController < ApplicationController
 
   # GET /favorites
   def index
-    favorites = Favorite.where(user_id: @user.id).order(:food_name)
+    favorites = Favorite.where(user_id: @user.id)
     if @user && favorites
       render json: favorites.to_json(include: :food)
     else
-      render json: { message: "Failed to load favorites." }, status: :unauthorized
-    end
-  end
-
-  # GET /favorites/1
-  def show
-    binding.pry
-    if @favorite && @favorite.user_id == @user.id
-      render json: @favorite.to_json(include: :food)
-    else
-      render json: { message: "Failed to load favorite." }, status: :unauthorized
+      render json: {errors: 'Failed to load favorites.'}
     end
   end
 
@@ -26,10 +16,10 @@ class FavoritesController < ApplicationController
   def create
     food = get_food(favorite_params.except(:user_id, :food_category_type))
     favorite = food.favorites.build(food_category_type: favorite_params[:food_category_type], user_id: favorite_params[:user_id])
-    if @user.id == favorite.user_id && favorite.save
+    if food && @user.id == favorite.user_id && favorite.save
       render json: favorite.to_json(include: :food), status: :created
     else
-      render json: favorite.errors, status: :unprocessable_entity
+      render json: {errors: 'Failed to create favorite.'}
     end
   end
 
@@ -39,7 +29,7 @@ class FavoritesController < ApplicationController
     if food && @user.id == favorite_params[:user_id] && @favorite.update(food_category_type: favorite_params[:food_category_type], user_id: favorite_params[:user_id], food_id: food.id)
       render json: @favorite.to_json(include: :food)
     else
-      render json: @favorite.errors, status: :unprocessable_entity
+      render json: {errors: 'Failed to update favorite.'}
     end
   end
 

@@ -1,7 +1,7 @@
 class User < ApplicationRecord
     has_secure_password
-    has_many :favorites
-    has_many :meals
+    has_many :favorites, dependent: :destroy
+    has_many :meals, dependent: :destroy
 
     validates :username, :email, presence: {message: "You must provide a username and email to sign up for an account."}
     validates :username, uniqueness: {message: "Username must be unique. Unfortunately, someone has already taken that username. Please choose another one."}
