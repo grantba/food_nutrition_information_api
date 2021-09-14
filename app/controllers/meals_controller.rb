@@ -35,7 +35,11 @@ class MealsController < ApplicationController
 
   # DELETE /meals/1
   def destroy
-    @meal.destroy
+    if @meal.destroy
+      render json: {status: :ok}
+    else
+      render json: {status: :unprocessable_entity}
+    end 
   end
 
   private

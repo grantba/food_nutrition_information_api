@@ -9,7 +9,8 @@ class UsersController < ApplicationController
       @token = encode_token(user_id: @user.id)
       render json: { user: UserSerializer.new(@user), jwt: @token }, status: :created
     else
-      render json: { message: "Failed to create user account." }, status: :unauthorized
+      errors = @user.errors.map {|message| message.message}.join("\n")
+      render json: {errors: "#{errors}"}, status: :unprocessable_entity       
     end
   end
 
@@ -23,17 +24,18 @@ class UsersController < ApplicationController
       token = encode_token({ user_id: @user.id })
       render json: { user: UserSerializer.new(@user), jwt: token }, status: :accepted
     else
-      render json: { message: "Failed to update user account." }, status: :unauthorized
+      errors = @user.errors.map {|message| message.message}.join("\n")
+      render json: {errors: "#{errors}"}, status: :unprocessable_entity     
     end
   end
 
   # DELETE /users/1
   def destroy
     if @user && @user.destroy
-      render json: { message: "You successfully deleted your account." }, status: :accepted
+      render json: {status: :ok}
     else
-      render json: { message: "Failed to delete user account." }, status: :unauthorized
-    end
+      render json: {status: :unprocessable_entity}
+    end 
   end
 
   private

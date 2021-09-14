@@ -9,7 +9,7 @@ class AuthController < ApplicationController
         token = encode_token({ user_id: @user.id })
         render json: { user: UserSerializer.new(@user), jwt: token }, status: :accepted
       else
-        render json: { message: 'Invalid username or password.' }, status: :unauthorized
+        render json: {errors: "We could not verify your credentials. Try logging in again.\nOr, if you do not have an account already, please signup instead."}
       end
     end
   
