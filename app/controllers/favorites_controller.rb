@@ -1,6 +1,6 @@
 class FavoritesController < ApplicationController
   before_action :authorized
-  before_action :set_favorite, only: [:show, :update, :destroy]
+  before_action :set_favorite, only: [:update, :destroy]
 
   # GET /favorites
   def index

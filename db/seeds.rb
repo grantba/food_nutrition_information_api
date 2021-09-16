@@ -41,13 +41,13 @@
 #     {meal_category_type: "snack food", description: "", user_id: 2},
 #     {meal_category_type: "dinner", description: "not healthy but deliscious", user_id: 2}])
 
-mealfoods = MealPlan.create([{meal_id: 7, food_id: 4},
-    {meal_id: 7, food_id: 3},
-    {meal_id: 7, food_id: 2},
-    {meal_id: 2, food_id: 1}])
+# mealfoods = MealPlan.create([{meal_id: 7, food_id: 4},
+#     {meal_id: 7, food_id: 3},
+#     {meal_id: 7, food_id: 2},
+#     {meal_id: 2, food_id: 1}])
 
-moremealfoods = MealPlan.create([{meal_id: 9, food_id: 1},
-    {meal_id: 6, food_id: 4},
-    {meal_id: 6, food_id: 6},
-    {meal_id: 7, food_id: 6},
-    {meal_id: 8, food_id: 5}])
+# moremealfoods = MealPlan.create([{meal_id: 9, food_id: 1},
+#     {meal_id: 6, food_id: 4},
+#     {meal_id: 6, food_id: 6},
+#     {meal_id: 7, food_id: 6},
+#     {meal_id: 8, food_id: 5}])

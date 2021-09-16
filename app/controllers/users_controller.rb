@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
   skip_before_action :authorized, only: [:create]
-  before_action :authorized, only: [:update, :destroy]
 
   # POST /users
   def create
@@ -13,10 +12,6 @@ class UsersController < ApplicationController
       render json: {errors: "#{errors}"}, status: :unprocessable_entity       
     end
   end
-
-  # def profile
-  #   render json: {user: UserSerializer.new(current_user)}, status: accepted
-  # end
 
   # PATCH/PUT /users/1
   def update
