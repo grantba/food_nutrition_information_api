@@ -1,4 +1,4 @@
-class mealsController < ApplicationController
+class MealsController < ApplicationController
   before_action :authorized
   before_action :set_meal, only: [:show, :update, :destroy]
 
@@ -16,9 +16,8 @@ class mealsController < ApplicationController
   # GET /meals/1
   def show
     meal = MealPlan.where(meal_id: @meal.id)
-    binding.pry
     if @meal && meal && @meal.user_id == @user.id
-      render json: meal.to_json(include: :food)
+      render json: meal, include: [:food, :meal]
     else
       render json: {errors: 'Failed to load meal.'}
     end
